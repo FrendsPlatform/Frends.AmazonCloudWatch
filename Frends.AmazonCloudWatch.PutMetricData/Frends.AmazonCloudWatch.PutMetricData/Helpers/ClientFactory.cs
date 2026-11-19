@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using Amazon;
 using Amazon.CloudWatch;
 using Amazon.Runtime;
@@ -8,7 +9,7 @@ using Frends.AmazonCloudWatch.PutMetricData.Enums;
 
 namespace Frends.AmazonCloudWatch.PutMetricData.Helpers;
 
-internal static class ClientFactory
+internal static partial class ClientFactory
 {
     internal static IAmazonCloudWatch Create(Connection connection)
     {
@@ -25,11 +26,14 @@ internal static class ClientFactory
     {
         if (region == Regions.Undefined) return null;
 
-        var systemName = System.Text.RegularExpressions.Regex
-            .Replace(region.ToString(), "(?<=[a-z])(?=[A-Z0-9])", "-")
+        var systemName = RegionNameRegex()
+            .Replace(region.ToString(), "-")
             .ToLowerInvariant();
         return RegionEndpoint.GetBySystemName(systemName);
     }
+
+    [GeneratedRegex("(?<=[a-z])(?=[A-Z0-9])")]
+    private static partial Regex RegionNameRegex();
 
     private static AWSCredentials GetCredentials(Connection connection) => connection.AuthenticationType switch
     {

@@ -1,0 +1,12 @@
+﻿[
+  {
+    "Task": "Frends.AmazonCloudWatch.PutMetricData",
+    "Migrations": [
+      {
+        "Version": "1.0.0",
+        "Description": "",
+        "Migration": []
+      }
+    ]
+  }
+]

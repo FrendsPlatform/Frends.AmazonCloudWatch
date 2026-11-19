@@ -19,11 +19,32 @@ internal sealed class TemporaryAwsProfile : IDisposable
 
         try
         {
-            File.WriteAllLines(ProfilesLocation, lines);
+            var options = new FileStreamOptions
+            {
+                Mode = FileMode.CreateNew,
+                Access = FileAccess.Write,
+                Share = FileShare.None,
+            };
+
+            if (!OperatingSystem.IsWindows())
+            {
+                options.UnixCreateMode =
+                    UnixFileMode.UserRead | UnixFileMode.UserWrite;
+            }
+
+            using var stream = new FileStream(ProfilesLocation, options);
+            using var writer = new StreamWriter(stream);
+
+            foreach (var line in lines)
+            {
+                writer.WriteLine(line);
+            }
         }
         catch
         {
-            File.Delete(ProfilesLocation);
+            if (File.Exists(ProfilesLocation))
+                File.Delete(ProfilesLocation);
+
             throw;
         }
     }

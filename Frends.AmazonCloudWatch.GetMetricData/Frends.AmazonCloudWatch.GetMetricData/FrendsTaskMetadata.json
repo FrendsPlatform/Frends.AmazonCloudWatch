@@ -1,0 +1,7 @@
+﻿{
+  "Tasks": [
+    {
+      "TaskMethod": "Frends.AmazonCloudWatch.GetMetricData.AmazonCloudWatch.GetMetricData"
+    }
+  ]
+}

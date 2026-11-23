@@ -6,6 +6,7 @@ Frends tasks for AmazonCloudWatch related operations.
 # Tasks
 
 - [Frends.AmazonCloudWatch.PutMetricData](Frends.AmazonCloudWatch.PutMetricData/README.md)
+- [Frends.AmazonCloudWatch.GetMetricData](Frends.AmazonCloudWatch.GetMetricData/README.md)
 
 # Contributing
 
